@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import Customerview from "./Customerview";
-// import { addcustomer as  addcustomerAction, } from './Slices/Customerslice';
 import { useDispatch, useSelector } from "react-redux";
-import { addCustomer } from "./redux/actions";
+import { addCustomer, deleteCustomer } from "./redux/actions";
 
 export default function Customeradd() {
   const [input, setInput] = useState("");
@@ -12,6 +11,12 @@ export default function Customeradd() {
   function addcustomer() {
     if (input) {
       dispatch(addCustomer({ id: Date.now(), name: input }));
+      setInput("");
+    }
+  }
+  function deleteCustomer() {
+    if (input) {
+      dispatch(deleteCustomer({ id: Date.now(), name: input }));
       setInput("");
     }
   }
@@ -26,7 +31,8 @@ export default function Customeradd() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <button onClick={addcustomer}>submit</button>
+        <button onClick={addcustomer}>Add</button>
+        <button onClick={deleteCustomer}>Delete</button>
       </div>
       <Customerview customers={customers} />
     </>
